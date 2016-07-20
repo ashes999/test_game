@@ -1,4 +1,2 @@
-class AwesomeMath:
-    @staticmethod
-    def get_awesomeness():
-        return 47
+def get_awesomeness():
+    return 16
