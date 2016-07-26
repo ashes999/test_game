@@ -27,9 +27,10 @@ resources = [
     { "name": "ow", "type": "audio", "src": "data/sfx/" }
 ]
 
+print("About to init")
 jabal.init(800, 600, resources, PlayScreen())
 #jabal.load_audio(["blip.lol"])
 
 #e = jabal.Entity().size(48, 48).move(32, 16).move_with_keyboard().colour('red')
-  
+
 #e.on_click(lambda: jabal.play_audio("blip"))

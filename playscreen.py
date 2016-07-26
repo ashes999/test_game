@@ -1,45 +1,47 @@
 from browser import window
 from browser import console
-global melonjs
-melonjs = window.me
-from javascript import JSObject
 from javascript import JSConstructor
 
+global melonjs
+melonjs = window.me
+
+# Facade, delegates to JS
 class ScreenObject:
-    
-    #funky = JSConstructor(melonjs.ScreenObject)
-    #console.log("HI {0}".format(funky))
-    def __init__(self):
-      funky = JSConstructor(melonjs.ScreenObject)
-      #self = funky()
-      #self.bind('reset', self.reset)
-      
-    def reset(self):
-      pass
-      
-    def destroy(self):
-      pass
 
-class PlayScreen(melonjs.ScreenObject):
-  
-    # action to perform on state change
-    def onResetEvent(self, *args):        
-        melonjs.game.reset()
+	def __init__(self):
+		self.jsScreen = JSConstructor(melonjs.ScreenObject)()
 
-        # add the background & foreground
-        # add the foreground
-        background_sprite10 = melonjs.Sprite(0, 0,   { "image": melonjs.loader.getImage("background")})
-        
-        # add all objects
-        melonjs.game.world.addChild(background_sprite10, 0)
+	def reset(self):
+		self.jsScreen.reset()
 
-    # action to perform when leaving this screen (state change)     
-    def onDestroyEvent(self, *args): 
-        pass
-        # remove the HUD from the game world
-        #melonjs.game.world.removeChild(this.HUD)
+	def destroy(self):
+		self.jsScreen.destroy()
 
-        # stop some music
-        # melonjs.audio.stopTrack()
 
-    
+class PlayScreen(ScreenObject):
+
+	def __init__(self):
+		super(PlayScreen, self).__init__()
+
+	def onResetEvent(self):
+		console.log("Resetting with {0}, g={1}".format(args, melonjs.game))
+		melonjs.game.reset()
+
+		# add the background & foreground
+		# add the foreground
+		background_sprite10 = window.melonjs.Sprite(0, 0,   { "image": melonjs.loader.getImage("background")})
+		background_sprite10 = window.copyBrythonMethodsToObjectRoot(background_sprite10)
+
+		# add all objects
+		melonjs.game.world.addChild(background_sprite10, 0)
+
+		console.log("Houston, we have liftoff~!")
+
+	# action to perform when leaving this screen (state change)
+	def onDestroyEvent(self):
+	    pass
+	    # remove the HUD from the game world
+	    #melonjs.game.world.removeChild(this.HUD)
+
+	    # stop some music
+	    # melonjs.audio.stopTrack()
