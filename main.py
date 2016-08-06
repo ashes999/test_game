@@ -1,7 +1,6 @@
 from browser import console
 import sys
 import jabal
-from playscreen import PlayScreen
 
 console.log("Running Python v{0}!".format(sys.version))
 
@@ -27,9 +26,14 @@ resources = [
     { "name": "ow", "type": "audio", "src": "data/sfx/" }
 ]
 
-jabal.init(800, 600, resources, PlayScreen())
+jabal.init(800, 600, resources)
 #jabal.load_audio(["blip.lol"])
 
-#e = jabal.Entity().size(48, 48).move(32, 16).move_with_keyboard().colour('red')
-  
-#e.on_click(lambda: jabal.play_audio("blip"))
+e = jabal.Entity().size(48, 48).move(32, 16).move_with_keyboard().colour('red')
+
+def click_handler():
+  jabal.play_audio("blip")
+  e.colour('blue')
+  console.log("Done")
+
+e.on_click(click_handler)
