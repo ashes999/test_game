@@ -11,8 +11,14 @@ jabal.load_audio(["blip.wav"])
 
 e = jabal.Entity().size(48, 48).move(32, 16).move_with_keyboard().colour('red')
 
-def on_click():
-	jabal.play_audio("blip")
-	e.colour("blue")
-	
-e.on_click(on_click)
+jabal.init(800, 600, resources)
+#jabal.load_audio(["blip.lol"])
+
+e = jabal.Entity().size(48, 48).move(32, 16).move_with_keyboard().colour('red')
+
+def click_handler():
+  jabal.play_audio("blip")
+  e.colour('blue')
+  console.log("Done")
+
+e.on_click(click_handler)
